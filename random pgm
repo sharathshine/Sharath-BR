@@ -1,0 +1,45 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RandomHelper
+{
+    class Randomcls
+    {
+        public static int randomInt(int a, int b)
+        {
+            Random rdt = new Random();
+            int num=rdt.Next(a,b);
+            return num;
+            
+        }
+        public static double randomDouble(int a,int b)
+        {
+            Random rdt = new Random();
+            double num = rdt.Next(a, b);
+            num = num + rdt.NextDouble();
+            return num;
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RandomHelper
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Randomcls c = new Randomcls();
+            Console.WriteLine("The random int is {0}", Randomcls.randomInt(1, 10));
+            Console.WriteLine("The random int is {0}", Randomcls.randomDouble(1, 10));
+            
+        }
+    }
+}
