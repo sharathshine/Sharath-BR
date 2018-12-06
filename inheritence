@@ -1,0 +1,185 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Inheritperson
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // person p = new person("shara", "BR", "sfa@f",new DateTime(1997,12,06));
+            //Employee e = new Employee("shara", "BR", "sfa@f", new DateTime(1997, 12, 06),100000);
+            //PermanentEmployee e = new PermanentEmployee("shara", "BR", "shara@gmail.com", new DateTime(1997, 06, 24), 1000000);
+            HourlyEmployee e = new HourlyEmployee("sharath", "BR", "ads@ah.com", new DateTime(1997, 12, 06), 9.75, 1000);
+            Console.WriteLine("the person is adult ={0}" ,e.isAdult());
+            Console.WriteLine("Today is birthday ={0}", e.isBirthday());
+            Console.WriteLine("the sunsign of the person is ={0}", e.sunSign());
+            Console.WriteLine("the generated mail is ={0}", e.mailname());
+            Console.WriteLine("All info of Hourly employee is {0} ",e.infoTotalpay());
+        }
+    }
+    public class person
+    {
+       protected string fname;
+        string lname;
+        string email;
+        DateTime dob;
+        public person(string fname,string lname,string email,DateTime dob) {
+            this.fname = fname;
+            this.lname = lname;
+            this.email = email;
+            this.dob = dob;
+        }
+        public bool isAdult()
+        {
+            DateTime now = DateTime.Today;
+            int age = now.Year - dob.Year;
+            Console.WriteLine(age);
+            if (age > 18)
+            {
+                return true;
+            }
+            return false; ;
+        }
+        public bool isBirthday()
+        {
+            DateTime now = DateTime.Today;
+            if (dob.DayOfYear == now.DayOfYear)
+            {
+                Console.WriteLine("it is birthday today");
+                return true;
+            }
+            return false;
+        }
+        public string sunSign()
+        {
+            int str = dob.Month;
+            Console.WriteLine(str);
+            switch (str)
+            {
+                case 1:return "Aries";
+                    break;
+                case 2: return "Taurus";
+                    break;
+                case 3:return "Gemini";
+                    break;
+                case 4:return "cancer";
+                    break;
+                case 5:
+                    return "Leo";
+                    break;
+                case 6:
+                    return "capricon";
+                    break;
+                case 7:
+                    return "Virgo";
+                    break;
+                case 8:
+                    return "libra";
+                    break;
+                case 9:
+                    return "Aquarious";
+                    break;
+                case 10:
+                    return "Scorpio";
+                    break;
+                case 11:
+                    return "sagittarious";
+                    break;
+                case 12:
+                    return "Pieces";
+                    break;
+                
+            }
+            return "";
+        }
+        public string mailname()
+        {
+            string day = Convert.ToString(dob.Day);
+            string month= Convert.ToString(dob.Month);
+            string year = Convert.ToString(dob.Year);
+            string yr = year.Substring(2);
+            string result = fname + lname + day + month + yr ;
+            return result;
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Inheritperson
+{
+    class Employee :person 
+    {
+        protected double salary;
+        public Employee(string fname, string lname, string email, DateTime dob, double salary) : base(fname, lname, email, dob)
+        {
+            this.salary = salary;
+        }
+       
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Inheritperson
+{
+    class HourlyEmployee : person,IPayable
+    {
+        double HoursWorked;
+        double PayPerHour;
+        double totalPay;
+        public HourlyEmployee(string name, string lname, string email, DateTime dob, double HoursWorked, double PayPerHour) : base(name, lname, email, dob)
+        {
+            this.HoursWorked = HoursWorked;
+            this.PayPerHour = PayPerHour;
+        }
+        public string infoTotalpay()
+        {
+            totalPay = HoursWorked * PayPerHour;
+            return "The Hour's worked is " + HoursWorked + " and pay per hour is " + PayPerHour+ "And hence total pay is "+totalPay;
+        }
+    }
+    class PermanentEmployee:Employee,IPayable
+    {
+        double HRA;
+        double DA;
+        double TAX;
+        double NetPay;
+        public PermanentEmployee(string fname, string lname, string email, DateTime dob, double salary) : base(fname, lname, email, dob, salary)
+        {
+
+        }
+        public string infoTotalpay()
+        {
+            HRA = salary*10 / 100 ;
+            DA = salary*15 / 100;
+            double gross = HRA + DA + salary;
+            TAX = gross*10 / 100 ;
+            NetPay = gross - TAX;
+            return "HRA is " + HRA + " DA is" + DA + " TAX is " + TAX + " NetPay is " + NetPay;
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Inheritperson
+{
+    interface IPayable
+    {
+        string infoTotalpay();
+    }
+}
