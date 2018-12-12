@@ -1,0 +1,151 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace collection1
+{
+    class Employee
+    {
+        string EmpName;
+        int EmpId;
+        double salary;
+        public Employee(string Empname,int empId,double salary)
+        {
+            EmpName = Empname;
+            EmpId = empId;
+            this.salary = salary;
+        }
+        public string getName()
+        {
+            return EmpName;
+        }
+        public int getEmpID()
+        {
+            return EmpId;
+        }
+        public double getsal()
+        {
+            return salary;
+        }
+    }
+}
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace collection1
+{
+    class EmployeeDal
+    {
+       ArrayList l = new ArrayList();
+        public bool addEmployee(Employee e)
+        {
+            l.Add(e);
+            return true;
+        }
+        public bool deleteEmployee(int id)
+        {
+            IEnumerator it = l.GetEnumerator();
+            while (it.MoveNext())
+            {
+                Employee emp = it.Current as Employee;
+                if (emp.getEmpID() == id)
+                {
+                    return true;
+                    l.Remove(emp);
+                }
+            }
+                return false;
+        }
+        public string searchEmployee(int id)
+        {
+            IEnumerator it = l.GetEnumerator();
+            while (it.MoveNext())
+            {
+                Employee emp = it.Current as Employee;
+                if (emp.getEmpID() == id)
+                {
+                    return emp.getName();
+                }
+            }
+            return "Not found";
+        }
+        public Employee[] getAllEmployees()
+        {
+            Employee[] emp = new Employee[l.Count]; 
+            IEnumerator it = l.GetEnumerator();
+            int i = 0;
+            while (it.MoveNext())
+            {
+                emp[i] = it.Current as Employee;
+                i++;
+            }
+            return emp;
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace collection1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            EmployeeDal e1 = new EmployeeDal();
+            Console.WriteLine("Enter the choice ");
+            int j=0;
+            while (j != 5)
+            {
+                Console.WriteLine("Press 1 for adding employee");
+                Console.WriteLine("press 2 for deleting employee");
+                Console.WriteLine("Press 3 for searching employee");
+                Console.WriteLine("press 4 for desplay");
+                Console.WriteLine("Press 5 for exit");
+                 j = int.Parse(Console.ReadLine());
+                switch (j)
+                {
+                    case 1:
+                        Console.WriteLine("Enter the employee name");
+                        string name = Console.ReadLine();
+                        Console.WriteLine("Enter the EmpID");
+                        int ID = int.Parse(Console.ReadLine());
+                        Console.WriteLine("Enter the salary ");
+                        double sal = double.Parse(Console.ReadLine());
+                        Employee e = new Employee(name, ID, sal);
+
+                        Console.WriteLine("Employee is added :" + e1.addEmployee(e));
+                        break;
+                    case 2: Console.WriteLine("Enter the EmpID to be deleted");
+                        int id = int.Parse(Console.ReadLine());
+                       Console.WriteLine("The employee of id"+   e1.deleteEmployee(id)+" Deleted successfully");
+                        break;
+                    case 3: Console.WriteLine("Enter the ID of the employee to be searched");
+                        int id1 = int.Parse(Console.ReadLine());
+                        Console.WriteLine("The name of the employee is "+e1.searchEmployee(id1));
+                        break;
+                    case 4:
+                        Employee[] a = e1.getAllEmployees();
+                        for (int i = 0; i < a.Length; i++)
+                        {
+                            Console.WriteLine("The name is " + a[i].getName() + " And the Id is  " + a[i].getEmpID() + " And the Salry is  " + a[i].getsal());
+                        }
+                        break;
+                    case 5:
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+}
