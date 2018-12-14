@@ -1,0 +1,188 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EmployeeManagement
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            EmployeeData obj = new EmployeeData();
+            obj.AddEmployee(new Employee("John", "Smith", 2012, 12, 01, "Msc", 10.0));
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EmployeeManagement
+{
+    public class Person
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int BirthYear { get; set; }
+        public int BirthMonth { get; set; }
+        public int BirthDay { get; set; }
+
+        public Person() { }
+        public Person(string FirstName, string LastName, int BirthYear, int BirthMonth, int BirthDay)
+        {
+            this.FirstName = FirstName;
+            this.LastName = LastName;
+            this.BirthYear = BirthYear;
+            this.BirthMonth = BirthMonth;
+            this.BirthDay = BirthDay;
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EmployeeManagement
+{
+    public class Employee:Person
+    {
+        //TODO: Write your code here.
+
+        public string Qualification { get; set; }
+        public double Experience { get; set; }
+        public string UserID { get; set; }
+        public string Password { get; set; }
+        public Employee(string FirstName, string LastName, int BirthYear, int BirthMonth, int BirthDay, string Qualification, double Experience) :
+            base(FirstName,LastName,BirthYear,BirthMonth,BirthDay) 
+        {
+        
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EmployeeManagement
+{
+    public class EmployeeData
+    {
+        //TODO : Write your code here.
+        public List<Employee> EmployeeList { get; set; }
+
+        public EmployeeData()
+        {
+            // TODO: Write your code here.
+            EmployeeList = new List<Employee>();
+        }
+        public string AddEmployee(Employee obj)
+        {
+            if (obj == null)
+                return null;
+            else
+            {
+                Utility.EmployeeUtility objUtility = new Utility.EmployeeUtility();
+                objUtility.GenerateUserName(obj, 1);
+                EmployeeList.Add(obj);
+                return obj.UserID;
+            }
+        }
+
+        public bool ModifyEmployee(Employee obj)
+        {
+            bool IsModified = false;
+            if (obj == null)
+                IsModified = false;
+            else
+            {
+                for (int i = 0; i < EmployeeList.Count; i++)
+                {
+                    if (EmployeeList[i].UserID == obj.UserID)
+                    {
+                        EmployeeList[i] = obj;
+                        IsModified = true;
+                    }
+                }
+            }
+
+            return IsModified;
+        }
+
+        public Employee SearchEmployee(string strUserID)
+        {
+            Employee objResult = null;
+            if (string.IsNullOrEmpty(strUserID))
+            {
+                return null;
+            }
+            else
+            {
+                for (int i = 0; i < EmployeeList.Count; i++)
+                    if (EmployeeList[i].UserID == strUserID)
+                    {
+                        objResult = EmployeeList[i];
+                    }
+            }
+
+            return objResult;
+        }
+
+        public bool DeleteEmployee(string strUserID)
+        {
+            bool isDeleted = false;
+
+            if (string.IsNullOrEmpty(strUserID))
+                return false;
+            else
+            {
+                for (int i = 0; i < EmployeeList.Count; i++)
+                    if (EmployeeList[i].UserID == strUserID)
+                    {
+                        EmployeeList.RemoveAt(i);
+                        isDeleted = true;
+                    }
+            }
+
+            return isDeleted;
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EmployeeManagement.Utility
+{
+    public class EmployeeUtility
+    {
+        public void GenerateUserName(Employee obj,int EmployeeCount)
+        {
+            string strUserID = ((char)(obj.FirstName[0]+obj.FirstName.Length)).ToString() + ((char)(obj.LastName[0]+obj.LastName.Length)).ToString();
+            strUserID += SumDigits(obj.BirthYear) + SumDigits(obj.BirthMonth) + SumDigits(obj.BirthDay);
+            strUserID += EmployeeCount;
+            obj.UserID = strUserID;
+        }
+
+        public string SumDigits(int value)
+        {
+            int sum = 0;
+            while (value != 0)
+            {
+                sum += value % 10;
+                value /= 10;
+            }
+
+            return sum.ToString();
+        }
+    }
+}
