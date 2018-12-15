@@ -1,0 +1,88 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace pingen_new
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine(createPIN(123,456,788));
+        }
+        public static int createPIN(int input1, int input2, int input3)
+        {
+            //Read only region end
+            //Write code here
+            int[] arr = new int[9];
+            int inc = 0;
+            while (input1 > 0)
+            {
+                arr[inc] = input1 % 10;
+                inc++;
+                input1 = input1 / 10;
+            }
+            
+            while (input2 > 0)
+            {
+                arr[inc] = input2 % 10;
+                inc++;
+                input2 = input2 / 10;
+            }
+            
+            while (input3 > 0)
+            {
+                arr[inc] = input3 % 10;
+                inc++;
+                input3 = input3 / 10;
+            }
+            foreach (int i in arr)
+            {
+                Console.WriteLine(i);
+            }
+            int temp = arr[0];
+            for (int j = 0; j < 9; j++)
+            {
+                if (arr[j] > temp)
+                {
+                    temp = arr[j];
+                }
+            }
+            int temp1 = arr[0];
+            for (int i = 0; i < 9; i++)
+            {
+                if (arr[i] < temp1)
+                {
+                    temp1 = arr[i];
+                }
+                i = i + 2;
+            }
+            int temp2 = arr[1];
+            for (int i = 1; i < 9; i++)
+            {
+                if (arr[i] < temp2)
+                {
+                    temp2 = arr[i];
+                }
+                i = i + 2;
+            }
+            int temp3 = arr[2];
+            for (int i = 2; i < 9; i++)
+            {
+                if (arr[i] < temp3)
+                {
+                    temp3 = arr[i];
+                }
+                i = i + 2;
+            }
+
+
+            string s = "";
+            s = s + temp + temp3 + temp2 + temp1;
+            int a = Convert.ToInt32(s);
+            return a;
+        }
+    }
+}
