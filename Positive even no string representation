@@ -1,0 +1,55 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace positiveevenarray
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string res = "";
+            Console.WriteLine("Enter the number");
+            int a = int.Parse(Console.ReadLine());
+            if (a >= 0)
+            {
+                //cal(a);
+                res = "P" + cal(a);
+                Console.WriteLine(res);
+            }
+            else
+            {
+                a = Math.Abs(a);
+                res="N"+cal(a);
+                Console.WriteLine(res);
+                Console.ReadKey();
+            }
+
+        }
+        public static string cal(int num)
+        {
+            string s = "";
+            int[] arr = new int[4];
+            int inc = 0;
+            while (num > 0)
+            {
+                arr[inc] = num % 10;
+                num /= 10;
+                inc++;
+            }
+            foreach (int i in arr)
+            {
+                if (i % 2 == 0 && i!=0)
+                {
+                    s = "e" + s;
+                }
+                else {
+                    s = "o" + s;
+                }
+            }
+            return s;
+        }
+    }
+}
