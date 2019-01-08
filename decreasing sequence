@@ -1,0 +1,57 @@
+using System;
+using System.Collections.Generic;
+
+//Read only region start
+public class UserMainCode
+{
+    //Assume following return types while writing the code for this question. 
+    public class Result
+    {
+		public int output1;
+		public int output2;
+    }
+
+    public Result decreasingSeq(int[] input1,int input2)
+    {
+        //Read only region end
+        //Write code here
+        int len=1;
+		int count=0;
+		int maxlen=0;
+		for(int i=1;i<input2;i++)
+		{
+			if(input1[i-1]>input1[i])
+			{
+				len++;
+			}
+			else
+			{
+				if(len>maxlen && len!=1)
+				{
+					maxlen=len;
+				}
+				if(len>1)
+				{
+					count++;
+				
+				}
+				len=1;
+			}
+			
+		}
+		
+		if(len>maxlen && len!=1)
+				{
+					maxlen=len;
+				}
+				if(len>1)
+				{
+					count++;
+				
+				}
+		Result r=new Result();
+		r.output1=count;
+		r.output2=maxlen;
+		return r;
+    }
+}
