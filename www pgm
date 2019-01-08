@@ -1,0 +1,44 @@
+using System;
+using System.Collections.Generic;
+
+//Read only region start
+public class UserMainCode
+{
+    public int findStringCode(string input1)
+    {
+        //Read only region end
+        //Write code here
+         string s=input1.ToUpper();
+		string[] str=s.Split(' ');
+		string result="";
+		int[] arr=new int[100];
+		int k=0;
+		for(int i=0;i<str.Length;i++)
+		{
+			 char[] ch=str[i].ToCharArray();
+			int sum=0;
+		     for(int j=0;j<ch.Length/2;j++)
+			 {
+				 sum+=Math.Abs((ch[j]-64)-(ch[ch.Length-1-j]-64));
+				 //Console.WriteLine(sum);
+			 }
+			if(ch.Length%2==0)
+				 {
+					 arr[k++]=sum;
+					 sum=0;
+				 }
+			if(ch.Length%2!=0)
+			{
+				sum+=ch[ch.Length/2]-64;
+				arr[k++]=sum;
+					 //Console.WriteLine(arr[k]);
+			}
+		}
+		for(int i=0;i<k;i++)
+		{
+			Console.WriteLine(arr[i]);
+				result+=arr[i].ToString();
+		}
+		return int.Parse(result);
+    }
+}
