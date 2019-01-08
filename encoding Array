@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+
+//Read only region start
+public class UserMainCode
+{
+    //Assume following return types while writing the code for this question. 
+    public class Result
+    {
+		public int output1;
+		public int output2;
+    }
+
+    public Result findOriginalFirstAndSum(int[] input1,int input2)
+    {
+        //Read only region end
+        //Write code here
+		int low=input1[input2-1];
+		int sum=low;
+		for(int i=input2-2;i>=0;i--)
+		{
+			low=input1[i]-low;
+			sum=sum+low;
+		}
+        Result r=new Result();
+		r.output1=low;
+		r.output2=sum;
+		return r;
+    }
+}
