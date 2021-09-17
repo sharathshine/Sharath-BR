@@ -1,0 +1,31 @@
+ string s= "This is This the word sharath";
+            string[] arr = s.Split(' ');
+            //Hashtable a = new Hashtable();
+
+            //foreach (var v in arr)
+            //{
+            //    if (!a.ContainsKey(v))
+            //    {
+            //        a.Add(v, 1);
+            //    }
+            //    else {
+            //        a[v] = (int)a[v]+1;
+            //    }
+            //}
+            Dictionary<string,int> a = new();
+            foreach (var v in arr)
+            {
+                if (!a.ContainsKey(v))
+                {
+                    a.Add(v, 1);
+                }
+                else
+                {
+                    a[v] = a[v] + 1;
+                }
+            }
+
+            foreach (var i in a)
+            {
+                Console.WriteLine(i.Key+ " has occurences " + i.Value  );
+            }
