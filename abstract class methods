@@ -1,0 +1,46 @@
+   abstract class abb{
+            public abstract void amethod();
+
+            public void print() {
+                Console.WriteLine("Print abst method");
+            }
+      }
+        interface isha {
+            void method();
+        }
+        interface isha1
+        {
+            void method();
+        }
+        class sha : abb,isha, isha1
+        {
+            void isha.method()
+            {
+                Console.WriteLine("Method i");
+            }
+            void isha1.method()
+            {
+                Console.WriteLine("Method i1");
+            }
+            public override void amethod() {
+                Console.WriteLine("Method abstract");
+            }
+        }
+        public static void Main()
+        {
+            try
+            {
+                isha1 sha = new sha();
+                sha.method();
+                var v=(sha) as isha;
+                v.method();
+                sha abb = new sha();
+                abb.amethod();
+                abb.print();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("exp");
+
+            }
+        }
