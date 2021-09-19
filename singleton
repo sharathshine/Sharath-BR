@@ -1,0 +1,32 @@
+ public sealed class Singleton1
+        {
+            public string val;
+            private Singleton1() { }
+            private static Singleton1 instance = null;
+            public static Singleton1 Instance
+            {
+                get
+                {
+                    if (instance == null)
+                    {
+                        instance = new Singleton1();
+                    }
+                    return instance;
+                }
+            }
+        }
+        public static void Main()
+        {
+            try
+            {
+                Singleton1 singleton1 = Singleton1.Instance;
+                singleton1.val = "shara";
+                Singleton1 singleton2 = Singleton1.Instance;
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("exp");
+
+            }
+        }
