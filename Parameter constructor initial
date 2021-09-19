@@ -1,0 +1,46 @@
+ public class constr
+        {
+            public string name { get; set; }
+            public int val { get; set; }
+            public constr(int val, string name)
+            {
+                this.val = val;
+                this.name = name;
+
+                Console.WriteLine("This is parame");
+            }
+
+            public constr()
+            {
+                Console.WriteLine("This is paramless");
+            }
+        }
+
+        public class constrderv : constr
+        {
+            public constrderv(): base()
+            {
+                Console.WriteLine("This is parame derv");
+            }
+            public constrderv(int val,string name) : base(val,name)
+            {
+                Console.WriteLine("This is parame derv");
+            }
+            public void printM()
+            {
+                Console.WriteLine("Print M der");
+            }
+        }
+        public static void Main()
+        {
+            try
+            {
+                constrderv constr = new(1,"shara");
+                constr.printM();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("exp");
+
+            }
+        }
